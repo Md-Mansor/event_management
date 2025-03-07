@@ -4,22 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Create Event</title>
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
-<body>
-    <div class="grid grid-cols-1 m-10 grid-rows-2 gap-6">
-        <div class="flex justify-evenly items-center border-2 shadow-md p-5 rounded-md bg-sky-300">
-            <h1 class="text-2xl font-bold">Create Category</h1>
-            <a href="{% url 'category_form' %}"><button class="border-2 rounded-md p-5 font-semibold">Create Now</button></a>
+<body class="bg-gray-100">
+
+    <!-- Main Container -->
+    <div class="max-w-screen-lg mx-auto p-10">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-sky-800">Create Category, Event, and Participant</h1>
+            <p class="text-lg text-gray-600 mt-2">Select one of the options below to manage your events effectively.</p>
         </div>
-        <div class="flex justify-evenly items-center border-2 shadow-md p-5 rounded-md bg-sky-300">
-            <h1 class="text-2xl font-bold">Create Event</h1>
-            <button class="border-2 rounded-md p-5 font-semibold">Create Now</button>
-        </div>
-        <div class="flex justify-evenly items-center border-2 shadow-md p-5 rounded-md bg-sky-300">
-            <h1 class="text-2xl font-bold">Create Particepate</h1>
-            <button class="border-2 rounded-md p-5 font-semibold">Create Now</button>
+
+        <!-- Grid for Buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Create Category Section -->
+            <div class="flex flex-col justify-center items-center border-2 shadow-lg rounded-lg bg-gradient-to-r from-teal-400 via-cyan-500 to-sky-600 p-6 hover:scale-105 transition-all duration-300">
+                <h2 class="text-3xl font-bold text-white mb-4">Create Category</h2>
+                <a href="{% url 'category_form' %}">
+                    <button class="bg-white text-sky-800 font-semibold py-3 px-6 rounded-md shadow-md hover:bg-sky-700 hover:text-white transition-all duration-300">
+                        Create Now
+                    </button>
+                </a>
+            </div>
+
+            <!-- Create Event Section -->
+            <div class="flex flex-col justify-center items-center border-2 shadow-lg rounded-lg bg-gradient-to-r from-teal-400 via-cyan-500 to-sky-600 p-6 hover:scale-105 transition-all duration-300">
+                <h2 class="text-3xl font-bold text-white mb-4">Create Event</h2>
+                <a href="{% url 'event_form' %}">
+                    <button class="bg-white text-sky-800 font-semibold py-3 px-6 rounded-md shadow-md hover:bg-sky-700 hover:text-white transition-all duration-300">
+                        Create Now
+                    </button>
+                </a>
+            </div>
+
+            <!-- Create Participant Section -->
+            <div class="flex flex-col justify-center items-center border-2 shadow-lg rounded-lg bg-gradient-to-r from-teal-400 via-cyan-500 to-sky-600 p-6 hover:scale-105 transition-all duration-300">
+                <h2 class="text-3xl font-bold text-white mb-4">Create Participant</h2>
+                <a href="{% url 'participant_form' %}">
+                    <button class="bg-white text-sky-800 font-semibold py-3 px-6 rounded-md shadow-md hover:bg-sky-700 hover:text-white transition-all duration-300">
+                        Create Now
+                    </button>
+                </a>
+            </div>
+
         </div>
     </div>
 

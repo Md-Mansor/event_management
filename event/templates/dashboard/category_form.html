@@ -17,9 +17,7 @@
     <div>
         <form action="" method="post">
             {% csrf_token %}
-            {{form.as_p}}
-            <input type="text" name="name" placeholder="Enter Category Name" class="border-2 p-2 rounded-md text-xl " required>
-            <input type="text" name="description" placeholder="Enter Category Description" class="border-2 p-2 rounded-md text-xl " required>
+            {{category_form}}
             <button type="submit" class="bg-teal-600 border-2 p-2 rounded-md text-2xl font-semibold hover:bg-teal-300">Submit</button>
         </form>
     </div>

@@ -6,16 +6,16 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Create Event with form</h1>
+    <h1>Create participate Here</h1>
     <div>
         {% if massage %}
         <p>{{massage}}</p>
         {% endif %}
     </div>
     <div>
-        <form action="" method="POST">
+        <form action="" method="post">
             {% csrf_token %}
-            {{event_form}}
+            {{participant_form}}
             <button type="submit">Submit</button>
         </form>
     </div>
