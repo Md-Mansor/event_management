@@ -4,7 +4,12 @@ from event.models import Category,Event,Participant
 
 # Create your views here.
 def home(request):
-    return render(request, "home.html")
+    events = Event.objects.all()
+    context = {
+        "events": events
+    }
+    print(events)
+    return render(request, "home.html", context)
 
 def create(request):
     return render(request, "dashboard/create.html")

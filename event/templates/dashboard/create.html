@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
 <body class="bg-gray-100">
-
+    {% comment %} navbar {% endcomment %}
+    <section>
+        {% include "dashboard/navbar.html" %}
+    </section>
     <!-- Main Container -->
     <div class="max-w-screen-lg mx-auto p-10">
         <div class="text-center mb-12">

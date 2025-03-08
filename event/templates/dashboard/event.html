@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
 <body>
-    <h1 class="font-extrabold">This Is Event View Page</h1>
+    {% comment %} navbar {% endcomment %}
+    <section>
+        {% include "dashboard/navbar.html" %}
+    </section>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center gap-5 p-5 font-semibold text-3xl shadow-md"> 
+        <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
+            <h1>Total Participants</h1>
+        </div>
+        <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
+            <h1>Total Events</h1>
+        </div>
+        <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
+            <h1>Upcoming Events </h1>
+        </div>
+        <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
+            <h1>Past Events</h1>
+        </div>
+    </div>
 </body>
 </html>
