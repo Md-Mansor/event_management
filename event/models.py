@@ -11,7 +11,7 @@ class Event(models.Model):
     date=models.DateField()
     time=models.TimeField()
     location=models.CharField(max_length=100)
-    category=models.ForeignKey(Category,on_delete=models.CASCADE)
+    category=models.ForeignKey(Category,on_delete=models.CASCADE,related_name="category")
 
 class Participant(models.Model):
     name=models.CharField(max_length=100)

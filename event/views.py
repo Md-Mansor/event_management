@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from event.forms import CategoryForm,EventForm,ParticipantForm
 from event.models import Category,Event,Participant
+from datetime import datetime
 
 # Create your views here.
 def home(request):
@@ -8,14 +9,28 @@ def home(request):
     context = {
         "events": events
     }
-    print(events)
+    # print(events)
     return render(request, "home.html", context)
 
 def create(request):
     return render(request, "dashboard/create.html")
 
 def event(request):
-    return render(request, "dashboard/event.html")
+    events = Event.objects.select_related("category").prefetch_related("event").all()
+    participant=Participant.objects.all()
+
+
+        
+    total_events = events.count()
+    total_participant=participant.count()
+
+    
+    context = {
+        "events": events,
+        "total_events": total_events,
+        "total_participant":total_participant
+    }
+    return render(request, "dashboard/event.html",context)
 
 
 def category_form(request):
@@ -50,3 +65,11 @@ def participant_form(request):
             return render(request, "dashboard/participant_form.html",{"form":participant_form,"message":"Participant created successfully"})
     context={"participant_form": participant_form}
     return render(request, "dashboard/participant_form.html", context)
+
+
+def participant(request):
+    participant=Participant.objects.all()
+    context = {
+        "participants": participant
+    }
+    return render(request, "dashboard/participant.html", context)

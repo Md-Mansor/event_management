@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participants List</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+<body class="bg-gray-100">
+    
+    {% comment %} Navbar {% endcomment %}
+    <section>
+        {% include "dashboard/navbar.html" %}
+    </section>
+
+    {% comment %} Dashboard Main {% endcomment %}
+    <section>
+        {% include "dashboard/dashboard_main.html" %}
+    </section>
+
+    {% comment %} Participants List {% endcomment %}
+    <section class="w-full mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Participants</h2>
+        
+        {% if participants %}
+            <div class="overflow-x-auto">
+                <table class="w-full border border-gray-300 bg-white rounded-md">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-700 text-center">
+                            <th class="py-2 px-4 border-b">Name</th>
+                            <th class="py-2 px-4 border-b">Email</th>
+                            <th class="py-2 px-4 border-b">Event</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for participant in participants %}
+                        <tr class="border-b hover:bg-gray-100 text-center">
+                            <td class="py-2 px-4">{{ participant.name }}</td>
+                            <td class="py-2 px-4">{{ participant.email }}</td>
+                            <td class="py-2 px-4">{{ participant.event }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-gray-600">No participants found.</p>
+        {% endif %}
+    </section>
+
+</body>
+</html>
