@@ -2,6 +2,7 @@ from django.shortcuts import render
 from event.forms import CategoryForm,EventForm,ParticipantForm
 from event.models import Category,Event,Participant
 from datetime import datetime
+from django.db.models import Count ,Q,Max,Min, Avg
 
 # Create your views here.
 def home(request):
@@ -16,22 +17,35 @@ def create(request):
     return render(request, "dashboard/create.html")
 
 def event(request):
+    query = request.GET.get("q")
     events = Event.objects.select_related("category").prefetch_related("event").all()
     participant=Participant.objects.all()
 
+    # count events & participant
+    counts = Event.objects.aggregate(
+        total_participant=Count("participant"),
+        total_events=Count("id"),
+        )
+    print(counts)
+
+
+    # query result conditionals
     today_event=Event.objects.filter(date=datetime.now().date())
-    
-    total_events = events.count()
-    total_participant=participant.count()
+    if query == "all":
+        today_event = Event.objects.all()
+    elif query == "upcoming":
+        pass
+    elif query == "past":
+        pass
 
     
     context = {
         "today_event":today_event,
-        # "events": events,
-        "total_events": total_events,
-        "total_participant":total_participant
+        "counts":counts,
+        # "total_events": total_events,
+        # "total_participant":total_participant
     }
-    return render(request, "dashboard/event.html",context)
+    return render(request, "dashboard/dashboard_main.html",context)
 
 
 def category_form(request):
@@ -66,18 +80,3 @@ def participant_form(request):
             return render(request, "dashboard/participant_form.html",{"form":participant_form,"message":"Participant created successfully"})
     context={"participant_form": participant_form}
     return render(request, "dashboard/participant_form.html", context)
-
-
-def participant(request):
-    participant=Participant.objects.all()
-    context = {
-        "participants": participant
-    }
-    return render(request, "dashboard/participant.html", context)
-
-def all_events(request):
-    events = Event.objects.all()
-    context = {
-        "events": events
-    }
-    return render(request, "dashboard/all_events.html", context)

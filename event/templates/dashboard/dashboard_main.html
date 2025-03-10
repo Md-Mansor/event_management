@@ -8,30 +8,61 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
 <body>
+    {% comment %} navbar {% endcomment %}
+    {% include "dashboard/navbar.html" %}
+    
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center gap-5 p-5 font-semibold text-3xl shadow-md">
-        <a href="{% url 'participant' %}">
         <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
-            <h1>Total Participants: {{total_participant}}</h1>
+            <h1>Total Participants: {{counts.total_participant}}</h1>
         </div>
-        </a>
-        <a href="{% url 'all_events' %}">
+        <a href="{% url 'view' %}?q=all">
         <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
-            <h1>Total Events: {{total_events}}</h1>
-        </div>
-        </a>
-
-        <a href="">
-        <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
-            <h1>Upcoming Events: </h1>
+            <h1>Total Events: {{counts.total_events}}</h1>
         </div>
         </a>
 
-        <a href="">
+        <a href="{% url 'view' %}?q=upcoming">
+        <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
+            <h1>Upcoming Events:  </h1>
+        </div>
+        </a>
+
+        <a href="{% url 'view' %}?q=past">
         <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
             <h1>Past Events: </h1>
         </div>
         </a>
 
     </div>
+
+    {% comment %} event list {% endcomment %}
+    {% comment %} all events {% endcomment %}
+    <section>
+        <h1 class="text-3xl font-bold italic text-center border-2 p-2 rounded-md m-2">Todays All Events</h1>
+        {% if today_event %}
+        <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-700">
+                            <th class="py-2 px-4 border">Event Name</th>
+                            <th class="py-2 px-4 border">Date</th>
+                            <th class="py-2 px-4 border">Time</th>
+                            <th class="py-2 px-4 border">Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in today_event %}
+                        <tr class="border-b hover:bg-gray-100">
+                                <td class="py-2 px-4 border text-center">{{ event.name }}</td>
+                                <td class="py-2 px-4 border text-center">{{ event.date }}</td>
+                                <td class="py-2 px-4 border text-center">{{ event.time }}</td>
+                                <td class="py-2 px-4 border text-center">{{ event.location }}</td>
+                        </tr>                               
+                        {% endfor %}
+                    </tbody>
+                </table>
+        {% endif %}
+    </section>
+    {% comment %} all events end {% endcomment %}
 </body>
 </html>
