@@ -19,14 +19,15 @@ def event(request):
     events = Event.objects.select_related("category").prefetch_related("event").all()
     participant=Participant.objects.all()
 
-
-        
+    today_event=Event.objects.filter(date=datetime.now().date())
+    
     total_events = events.count()
     total_participant=participant.count()
 
     
     context = {
-        "events": events,
+        "today_event":today_event,
+        # "events": events,
         "total_events": total_events,
         "total_participant":total_participant
     }
@@ -73,3 +74,10 @@ def participant(request):
         "participants": participant
     }
     return render(request, "dashboard/participant.html", context)
+
+def all_events(request):
+    events = Event.objects.all()
+    context = {
+        "events": events
+    }
+    return render(request, "dashboard/all_events.html", context)
