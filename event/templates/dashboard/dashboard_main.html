@@ -12,9 +12,13 @@
     {% include "dashboard/navbar.html" %}
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center gap-5 p-5 font-semibold text-3xl shadow-md">
+
+        <a href="{% url 'view' %}?q=participant">
         <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
             <h1>Total Participants: {{counts.total_participant}}</h1>
         </div>
+        </a>
+
         <a href="{% url 'view' %}?q=all">
         <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
             <h1>Total Events: {{counts.total_events}}</h1>
@@ -48,6 +52,8 @@
                             <th class="py-2 px-4 border">Date</th>
                             <th class="py-2 px-4 border">Time</th>
                             <th class="py-2 px-4 border">Location</th>
+                            <th class="py-2 px-4 border">Edit</th>
+                            <th class="py-2 px-4 border">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,6 +63,15 @@
                                 <td class="py-2 px-4 border text-center">{{ event.date }}</td>
                                 <td class="py-2 px-4 border text-center">{{ event.time }}</td>
                                 <td class="py-2 px-4 border text-center">{{ event.location }}</td>
+                                <td class="py-2 px-4 border text-center">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <form action="{% url 'delete' event.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="Submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                                    </form>
+                                </td>
                         </tr>                               
                         {% endfor %}
                     </tbody>

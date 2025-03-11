@@ -9,7 +9,9 @@
     <h1>Create Event with form</h1>
     <div>
         {% if massage %}
-        <p>{{massage}}</p>
+            {% for massage in massage %}
+                <h1>{{massage}}</h1>
+            {% endfor %}
         {% endif %}
     </div>
     <div>

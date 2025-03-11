@@ -3,6 +3,8 @@ from event.forms import CategoryForm,EventForm,ParticipantForm
 from event.models import Category,Event,Participant
 from datetime import datetime
 from django.db.models import Count ,Q,Max,Min, Avg
+from django.shortcuts import redirect
+from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
@@ -19,14 +21,13 @@ def create(request):
 def event(request):
     query = request.GET.get("q")
     events = Event.objects.select_related("category").prefetch_related("event").all()
-    participant=Participant.objects.all()
 
     # count events & participant
     counts = Event.objects.aggregate(
         total_participant=Count("participant"),
         total_events=Count("id"),
         )
-    print(counts)
+    # print(counts)
 
 
     # query result conditionals
@@ -34,16 +35,15 @@ def event(request):
     if query == "all":
         today_event = Event.objects.all()
     elif query == "upcoming":
-        pass
+        today_event=Event.objects.filter(date__gt=datetime.now().date())
     elif query == "past":
-        pass
-
-    
+        today_event=Event.objects.filter(date__lt=datetime.now().date())
+    elif query=="participant":
+        participant=Participant.objects.all()
     context = {
         "today_event":today_event,
         "counts":counts,
-        # "total_events": total_events,
-        # "total_participant":total_participant
+        # "participant":participant,
     }
     return render(request, "dashboard/dashboard_main.html",context)
 
@@ -80,3 +80,10 @@ def participant_form(request):
             return render(request, "dashboard/participant_form.html",{"form":participant_form,"message":"Participant created successfully"})
     context={"participant_form": participant_form}
     return render(request, "dashboard/participant_form.html", context)
+
+
+def delete(request, id):
+    if request.method == "POST":
+        event=Event.objects.get(id=id)
+        event.delete()
+        return redirect("view")
