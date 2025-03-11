@@ -26,8 +26,9 @@ def event(request):
     counts = Event.objects.aggregate(
         total_participant=Count("participant"),
         total_events=Count("id"),
+        upcoming=Count("date",filter(Q(date__gt=datetime.now().date()))),
+        past=Count("date",filter(Q(date__lt=datetime.now().date()))),
         )
-    # print(counts)
 
 
     # query result conditionals
@@ -38,12 +39,10 @@ def event(request):
         today_event=Event.objects.filter(date__gt=datetime.now().date())
     elif query == "past":
         today_event=Event.objects.filter(date__lt=datetime.now().date())
-    elif query=="participant":
-        participant=Participant.objects.all()
+    
     context = {
         "today_event":today_event,
         "counts":counts,
-        # "participant":participant,
     }
     return render(request, "dashboard/dashboard_main.html",context)
 

@@ -13,11 +13,10 @@
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center gap-5 p-5 font-semibold text-3xl shadow-md">
 
-        <a href="{% url 'view' %}?q=participant">
+        
         <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
             <h1>Total Participants: {{counts.total_participant}}</h1>
-        </div>
-        </a>
+        </div>    
 
         <a href="{% url 'view' %}?q=all">
         <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
@@ -27,13 +26,13 @@
 
         <a href="{% url 'view' %}?q=upcoming">
         <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
-            <h1>Upcoming Events:  </h1>
+            <h1>Upcoming Events: {{counts.upcoming}}  </h1>
         </div>
         </a>
 
         <a href="{% url 'view' %}?q=past">
         <div class="border-2 rounded-md bg-gradient-to-l from-teal-400 via-cyan-500 to-sky-600 text-white p-10 text-center">
-            <h1>Past Events: </h1>
+            <h1>Past Events: {{counts.past}} </h1>
         </div>
         </a>
 
