@@ -26,8 +26,8 @@ def event(request):
     counts = Event.objects.aggregate(
         total_participant=Count("participant"),
         total_events=Count("id"),
-        upcoming=Count("date",filter(Q(date__gt=datetime.now().date()))),
-        past=Count("date",filter(Q(date__lt=datetime.now().date()))),
+        # upcoming=Count("date",filter(Q(date__gt=datetime.now().date()))),
+        # past=Count("date",filter(Q(date__lt=datetime.now().date()))),
         )
 
 
@@ -86,3 +86,17 @@ def delete(request, id):
         event=Event.objects.get(id=id)
         event.delete()
         return redirect("view")
+
+
+def edit(request, id):
+    event = Event.objects.get(id=id)
+    event_form = EventForm(instance=event)
+
+    if request.method=="POST":
+        event_form=EventForm(request.POST,instance=event)
+        if event_form.is_valid():
+            event_form.save()
+            
+            return redirect("view")
+    context={"event_form": event_form}
+    return render(request, "dashboard/event_form.html", context)
