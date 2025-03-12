@@ -17,28 +17,31 @@
       <h1 class="text-5xl font-extrabold text-center text-sky-800 p-12 border-b-4 border-sky-600 bg-sky-50">Event Management</h1>
       <p class="text-center text-gray-600 text-lg mt-8">Welcome to the event management system. Manage and view events easily.</p>
 
-      <!-- Search Box Section -->
-      <div class="text-center mt-12">
-        <form class="flex justify-center">
-          <input type="text" name="query" class="px-6 py-3 border border-gray-300 rounded-l-md text-lg" placeholder="Search events..." required>
-          <button type="submit" class="px-6 py-3 bg-sky-600 text-white text-xl rounded-r-md shadow-md hover:bg-sky-800 transition duration-300 ease-in-out">
-            Search
-          </button>
-        </form>
-      </div>
+    <!-- Search Box Section -->
+<div class="text-center mt-12">
+  <form class="flex justify-center" method="GET" action="{% url 'search' %}">
+    <input type="text" name="search" value="{{ search }}" class="px-6 py-3 border border-gray-300 rounded-l-md text-lg" placeholder="Search events..." required>
+    <button type="submit" class="px-6 py-3 bg-sky-600 text-white text-xl rounded-r-md shadow-md hover:bg-sky-800 transition duration-300 ease-in-out">
+      Search
+    </button>
+  </form>
+</div>
 
-      <section class="grid grid-cols-4 gap-5 p-5 text-white mt-12">
-        {% if events %}
-          {% for event in events %}
-          <div class="bg-emerald-300 border-2 rounded-md p-2">
-            <p class="text-2xl font-bold text-center">{{ event.name }}</p>
-            <p>{{ event.date }}</p>
-            <p>{{ event.time }}</p>
-            <p>{{ event.location }}</p>
-          </div>
-          {% endfor %}
-        {% endif %}
-      </section>
+<section class="grid grid-cols-4 gap-5 p-5 text-white mt-12">
+  {% if events %}
+    {% for event in events %}
+    <div class="bg-emerald-300 border-2 rounded-md p-2">
+      <p class="text-2xl font-bold text-center">{{ event.name }}</p>
+      <p>{{ event.date }}</p>
+      <p>{{ event.time }}</p>
+      <p>{{ event.location }}</p>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-center text-gray-500">No events found.</p>
+  {% endif %}
+</section>
+
     </div>
   </div>
 </body>

@@ -10,9 +10,8 @@ from django.http import HttpResponse
 def home(request):
     events = Event.objects.all()
     context = {
-        "events": events
+        "events": events,
     }
-    # print(events)
     return render(request, "home.html", context)
 
 def create(request):
@@ -21,13 +20,15 @@ def create(request):
 def event(request):
     query = request.GET.get("q")
     events = Event.objects.select_related("category").prefetch_related("event").all()
+    upcoming_events = Event.objects.filter(date__gt=datetime.now().date())
+    past_events = Event.objects.filter(date__lt=datetime.now().date())
 
     # count events & participant
     counts = Event.objects.aggregate(
         total_participant=Count("participant"),
         total_events=Count("id"),
-        # upcoming=Count("date",filter(Q(date__gt=datetime.now().date()))),
-        # past=Count("date",filter(Q(date__lt=datetime.now().date()))),
+        # upcoming_events=Count(upcoming_events),
+        # past_events=Count(past_events)
         )
 
 
@@ -43,6 +44,8 @@ def event(request):
     context = {
         "today_event":today_event,
         "counts":counts,
+        # "upcoming_events":upcoming_events,
+        # "past_events":past_events,
     }
     return render(request, "dashboard/dashboard_main.html",context)
 
@@ -100,3 +103,12 @@ def edit(request, id):
             return redirect("view")
     context={"event_form": event_form}
     return render(request, "dashboard/event_form.html", context)
+
+def search(request):
+    query = request.GET.get("search", None)
+    events = Event.objects.filter(name__icontains=query)
+    context = {
+        "events": events,  
+        "search": query 
+    }
+    return render(request, "home.html", context)
