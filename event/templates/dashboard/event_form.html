@@ -1,25 +1,28 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
 <body>
-    <h1>Create Event with form</h1>
     <div>
-        {% if massage %}
-            {% for massage in massage %}
-                <h1>{{massage}}</h1>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{event_form}}
-            <button type="submit">Submit</button>
-        </form>
+        {% comment %} <div>
+            {% if massage %}
+                {% for massage in massage %}
+                    <h1>{{massage}}</h1>
+                {% endfor %}
+            {% endif %}
+        </div> {% endcomment %}
+        <div class="w-1/2 mx-auto mt-10 border-2 border-gray-300 p-5 rounded-md">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{event_form}}
+                <button type="submit" class="bg-teal-600 border-2 p-2 rounded-md text-2xl font-semibold hover:bg-teal-300">Submit</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

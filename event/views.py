@@ -20,8 +20,6 @@ def create(request):
 def event(request):
     query = request.GET.get("q")
     events = Event.objects.select_related("category").prefetch_related("event").all()
-    upcoming_events = Event.objects.filter(date__gt=datetime.now().date())
-    past_events = Event.objects.filter(date__lt=datetime.now().date())
 
     # count events & participant
     counts = Event.objects.aggregate(

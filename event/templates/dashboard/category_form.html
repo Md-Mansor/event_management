@@ -8,15 +8,14 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
 <body>
-    <h1>Create Category type for event Here</h1>
     <div>
-        {% if massage %}
+        {% comment %} {% if massage %}
             {% for massage in massage %}
                 <h1>{{massage}}</h1>
             {% endfor %}
-        {% endif %}
+        {% endif %} {% endcomment %}
     </div>
-    <div>
+    <div class="w-1/2 mx-auto mt-10 border-2 border-gray-300 p-5 rounded-md">
         <form action="" method="post">
             {% csrf_token %}
             {{category_form}}
